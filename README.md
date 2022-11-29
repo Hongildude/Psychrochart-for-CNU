@@ -41,6 +41,8 @@ pip install Coolprop
 
 ## 2. 도구 - 옵션
 
+![화면 캡처 2022-11-29 162248](https://user-images.githubusercontent.com/96619234/204464665-6411aeff-c6a4-4a83-bc9d-a40797a06e71.png)
+
 (1) 상단의 메뉴바에서 도구 - 옵션을 클릭합니다.
 
 (2) 해발, 건구온도, 비습도
@@ -64,6 +66,7 @@ pip install Coolprop
 상태량 박스에 건구온도, 상대습도, 비습도, 엔탈피중 추가할 상태량을 선택합니다.
 
 ## 3. 습공기선도
+![상태량](https://user-images.githubusercontent.com/96619234/204464368-2cccf3b5-6fe2-4a1e-bf00-abb7f2dd13a0.png)
 
 (1) 상태량 계산 
 
@@ -76,6 +79,9 @@ pip install Coolprop
 (2) 상태점, 선 추가 
 
 상태량 계산을 한 후 점을 추가할 수 있으며 점과 점을 잇는 선을 추가할 수 있습니다.
+
+![화면 캡처 2022-11-29 162410](https://user-images.githubusercontent.com/96619234/204465020-e4e46d28-b158-4947-9d63-bf76dc58e740.png)
+
 
 ## 4. 인쇄
 
