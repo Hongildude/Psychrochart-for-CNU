@@ -85,7 +85,7 @@ pip install Coolprop
 ![화면 캡처 2022-11-29 162410](https://user-images.githubusercontent.com/96619234/204465020-e4e46d28-b158-4947-9d63-bf76dc58e740.png)
 
 
-## 4. 인쇄
+## 4. 이미지 저장
 
 (1) 도구 - 이미지저장을 이용하여 .png파일로 저장할 수 있습니다.
 
