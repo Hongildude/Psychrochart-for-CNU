@@ -3,7 +3,7 @@
 
 안녕하세요 전남대학교 기계공학부 학생들을 위한 습공기선도 프로그램입니다. 
 
-다운로드 링크 :  **[Psychro charts for CNU](https://github.com/Hongildude/Psychrochart-for-CNU)** 
+다운로드 링크 :  **[Psychrochart for CNU](https://github.com/Hongildude/Psychrochart-for-CNU)** 
 
 Psychrochart for CNU를 이용해주셔서 감사합니다.
 
@@ -87,6 +87,6 @@ pip install Coolprop
 
 ## 4. 인쇄
 
-(1) 도구 -  기능을 이용하여 .png파일로 저장할 수 있습니다.
+(1) 도구 - 이미지저장을 이용하여 .png파일로 저장할 수 있습니다.
 
 - 저장된 파일은 .py이 있는곳에 자동으로 저장이 됩니다.
