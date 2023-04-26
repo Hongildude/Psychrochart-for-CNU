@@ -76,6 +76,28 @@ def H_TW(T,W):
 def R_TW(T, W, P=101325):
     return secant(lambda R: W_TR(T, R, P) - W, 0.8)
 
+def B_TW(T, W):
+    R = R_TW(T, W)
+    B = B_TR(T, R)
+
+    return B
+
+def B_TR(T, R, P=101325):
+    """ wet-bulb temperature """
+    h1 = H_TR(T, R, P)
+    W1 = W_TR(T, R, P)
+
+    def fun(B):
+        # hf = PropsSI('H', 'T', B, 'Q', 0, 'water')
+        hf = 4186.0 * (B - K)
+        h2 = H_TR(B, 1, P)
+        W2 = W_TR(B, 1, P)
+        h11 = h2 - (W2 - W1) * hf
+        return h1 - h11
+
+    B = secant(fun, T)
+    return B
+
 T_array = np.linspace(273.15, 35 + 273.15, 100)
 W_array = np.linspace(0, 30e-3, 100)
 
@@ -93,10 +115,19 @@ H_grid = np.zeros_like(T_grid)
 for i, T in enumerate(T_array):
     for j, W in enumerate(W_array):
         RH = R_TW(T, W) * 100  # Calculate relative humidity
-        if RH <= 170:          # 여기 수정하면 된다.
+        if RH <= 800:          # 여기 수정하면 된다.
             H_grid[j, i] = H_TW(T, W)
         else:
             H_grid[j, i] = np.nan
+
+# Calculate wet-bulb temperature grid
+B_grid = np.zeros_like(T_grid)
+for i, T in enumerate(T_array):
+    for j, W in enumerate(W_array):
+        try:
+            B_grid[j, i] = B_TW(T,W)  # Convert to Celsius
+        except:
+            B_grid[j, i] = np.nan
 
 # Plot relative humidity contours
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -117,6 +148,10 @@ ax.clabel(contour_plot_without_100, colors='k', fontsize=8, fmt="%1.0f%%", manua
 enthalpy_levels = np.arange(0, 100, 5) * 1e3
 enthalpy_plot = ax.contour(T_grid - 273.15, W_grid, H_grid, levels=enthalpy_levels, colors='k', linewidths=0.8)
 
+# Plot wet-bulb temperature contours (습구 온도 그리드를 점선 스타일로 그리기)
+wet_bulb_levels = np.arange(5+ 273.15, 31+273.15, 2)
+wet_bulb_plot = ax.contour(T_grid - 273.15, W_grid, B_grid, levels=wet_bulb_levels, colors='k', linewidths=0.8, linestyles='dashed')
+
 # Move y-axis to the right
 ax.yaxis.tick_right()
 ax.yaxis.set_label_position("right")
@@ -124,8 +159,13 @@ ax.yaxis.set_label_position("right")
 # Set y-axis ticks to be displayed every 0.001
 ax.set_yticks(np.arange(0, W_array[-1] + 0.001, 0.001))
 
+# Set x-axis ticks to be displayed every 5 and gridlines every 1
+ax.set_xticks(np.arange(T_array[0] - 273.15, T_array[-1] - 273.15 + 5, 5))
+ax.set_xticks(np.arange(T_array[0] - 273.15, T_array[-1] - 273.15 + 1, 1), minor=True)
+ax.grid(which='minor', alpha=0.2)
+ax.grid(which='major', alpha=0.5)
+
 ax.set_xlabel("Temperature [°C]")
 ax.set_ylabel("Absolute Humidity, W [kg/kg dry air]")
 ax.set_title("Psychrometric Chart")
-ax.grid(True)
 plt.show()
